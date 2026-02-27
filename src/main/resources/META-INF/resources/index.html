@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JMusic - AI Song Reviewer</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+
+<body>
+    <div id="canvas-container"></div>
+
+    <div class="app-container">
+        <header>
+            <h1 class="glow-text">JMUSIC</h1>
+            <div class="current-song-info">
+                <span id="song-name-display">Nueva Canción</span>
+            </div>
+        </header>
+
+        <main>
+            <aside class="sidebar" id="song-list">
+                <h2>CANCIONES</h2>
+                <ul id="songs-ul">
+                    <!-- Song list will be populated here -->
+                </ul>
+                <button id="new-song-btn" class="futuristic-btn">Nueva Canción</button>
+            </aside>
+
+            <section class="editor-section">
+                <div class="panel-header">EDITOR DE LETRAS</div>
+                <textarea id="lyric-editor" placeholder="Escribe aquí la letra de tu canción..."></textarea>
+                <div class="editor-footer">
+                    <button id="save-btn" class="futuristic-btn save">Guardar .md</button>
+                </div>
+            </section>
+
+            <aside class="analysis-panels">
+                <div class="panel" id="syllables-panel">
+                    <h3>SÍLABAS & MÉTRICA</h3>
+                    <div class="panel-content" id="metrics-content">
+                        <!-- Real-time metrics -->
+                    </div>
+                </div>
+                <div class="panel" id="rhymes-panel">
+                    <h3>RIMAS & SUGERENCIAS</h3>
+                    <div class="panel-content" id="rhymes-content">
+                        <!-- Rhyme analysis -->
+                    </div>
+                </div>
+                <div class="panel" id="ai-panel">
+                    <h3>IA SUGGESTIONS</h3>
+                    <div class="panel-content" id="ai-content">
+                        <!-- AI feedback -->
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
