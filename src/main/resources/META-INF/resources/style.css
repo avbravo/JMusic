@@ -150,6 +150,15 @@ main {
     box-shadow: 0 0 20px var(--accent-glow);
 }
 
+.analysis-panels {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: auto;
+    padding-right: 5px;
+    /* Space for scrollbar */
+}
+
 .panel-content {
     font-size: 0.9rem;
     overflow-y: auto;

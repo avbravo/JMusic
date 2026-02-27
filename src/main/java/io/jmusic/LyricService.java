@@ -41,9 +41,13 @@ public class LyricService {
             String trimmed = line.trim();
             if (trimmed.isEmpty()) continue;
 
-            int syllables = countSyllablesWithSinalefa(trimmed);
-            String rhymePart = extractRhymePart(trimmed);
-            boolean hasSinalefa = detectSinalefa(trimmed);
+            // Remove content inside brackets [Verse], [Chorus], etc.
+            String cleanLine = trimmed.replaceAll("\\[.*?\\]", "").trim();
+            if (cleanLine.isEmpty()) continue;
+
+            int syllables = countSyllablesWithSinalefa(cleanLine);
+            String rhymePart = extractRhymePart(cleanLine);
+            boolean hasSinalefa = detectSinalefa(cleanLine);
             
             LineAnalysis la = new LineAnalysis(syllables, syllables, rhymePart, suggestRhymes(rhymePart), hasSinalefa, "");
             lineResults.add(la);
