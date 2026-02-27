@@ -132,9 +132,46 @@ function updateUI(verses) {
     </div>`;
 }
 
+// Custom Modal System
+const modalOverlay = document.getElementById('modal-overlay');
+const modalMessage = document.getElementById('modal-message');
+const modalInput = document.getElementById('modal-input');
+const modalOkBtn = document.getElementById('modal-ok-btn');
+const modalCancelBtn = document.getElementById('modal-cancel-btn');
+
+function showModal(message, isPrompt = false, defaultValue = "") {
+    return new Promise((resolve) => {
+        modalMessage.textContent = message;
+        modalInput.value = defaultValue;
+        modalInput.style.display = isPrompt ? 'block' : 'none';
+        modalCancelBtn.style.display = isPrompt ? 'inline-block' : 'none';
+
+        modalOverlay.classList.add('active');
+
+        const onOk = () => {
+            cleanup();
+            resolve(isPrompt ? modalInput.value : true);
+        };
+
+        const onCancel = () => {
+            cleanup();
+            resolve(null);
+        };
+
+        const cleanup = () => {
+            modalOkBtn.removeEventListener('click', onOk);
+            modalCancelBtn.removeEventListener('click', onCancel);
+            modalOverlay.classList.remove('active');
+        };
+
+        modalOkBtn.addEventListener('click', onOk);
+        modalCancelBtn.addEventListener('click', onCancel);
+    });
+}
+
 // Persistencia
 document.getElementById('save-btn').addEventListener('click', async () => {
-    const name = prompt("Nombre de la canción:", currentSongName);
+    const name = await showModal("Nombre de la canción:", true, currentSongName);
     if (!name) return;
 
     try {
@@ -143,10 +180,10 @@ document.getElementById('save-btn').addEventListener('click', async () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name: name, content: editor.value })
         });
-        alert("¡Canción guardada!");
+        await showModal("¡Canción guardada con éxito!");
         loadSongs();
     } catch (e) {
-        alert("Error al guardar.");
+        await showModal("Error al guardar la canción.");
     }
 });
 
